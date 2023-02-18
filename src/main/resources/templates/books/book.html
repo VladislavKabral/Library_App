@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+    <body>
+        <div class="book">
+            <h3 th:text="${book.getFullName()}">Book full name</h3>
+        </div>
+        <form th:method="GET" th:action="@{/books}">
+            <input type="submit" value="Назад">
+        </form>
+    </body>
+</html>
