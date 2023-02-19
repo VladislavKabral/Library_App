@@ -1,6 +1,8 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 
@@ -13,12 +15,18 @@ public class Person {
     private int id;
 
     @Column(name = "last_name")
+    @NotEmpty(message = "Поле фамилии не должно быть пустым")
+    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле фамилии должны быть только буквы")
     private String lastName;
 
     @Column(name = "first_name")
+    @NotEmpty(message = "Поле имени не должно быть пустым")
+    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле имени должны быть только буквы")
     private String firstName;
 
     @Column(name = "middle_name")
+    @NotEmpty(message = "Поле отчества не должно быть пустым")
+    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле отчества должны быть только буквы")
     private String middleName;
 
     @Column(name = "year_of_birthday")

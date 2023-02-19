@@ -1,22 +1,26 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.controllers;
 
+import by.kabral.springcourse.libraryapp.LibraryApp.models.Book;
 import by.kabral.springcourse.libraryapp.LibraryApp.services.BooksService;
+import by.kabral.springcourse.libraryapp.LibraryApp.utils.BooksValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/books")
 public class BooksController {
 
     private final BooksService booksService;
+    private final BooksValidator booksValidator;
 
     @Autowired
-    public BooksController(BooksService booksService) {
+    public BooksController(BooksService booksService, BooksValidator booksValidator) {
         this.booksService = booksService;
+        this.booksValidator = booksValidator;
     }
 
     @GetMapping
@@ -28,6 +32,44 @@ public class BooksController {
     @GetMapping("/{id}")
     public String bookHome(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", booksService.findById(id));
+        return "books/book";
+    }
+
+    @GetMapping("/new")
+    public String newBookPage(Model model) {
+        model.addAttribute("book", new Book());
+        return "books/addBook";
+    }
+
+    @PostMapping
+    public String createBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        booksValidator.validate(book, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "books/addBook";
+        }
+
+        booksService.save(book);
+
+        return "redirect:/books";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editBookPage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("book", booksService.findById(id));
+        return "books/editBook";
+    }
+
+    @PatchMapping("/{id}")
+    public String editBook(@ModelAttribute("book") @Valid Book book, @PathVariable("id") int id, BindingResult bindingResult) {
+        booksValidator.validate(book, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "books/editBook";
+        }
+
+        booksService.update(id, book);
+
         return "books/book";
     }
 }

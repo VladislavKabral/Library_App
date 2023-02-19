@@ -5,6 +5,30 @@
     <title>Add book</title>
 </head>
     <body>
-
+        <div class="book">
+            <form th:method="POST" th:action="@{/books}" th:object="${book}">
+                <div class="name">
+                    <label for="name">Название книги: </label>
+                    <input id="name" type="text" th:field="*{name}" placeholder="Название">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+                </div>
+                <div class="author">
+                    <label for="author">Автор книги: </label>
+                    <input id="author" type="text" th:field="*{author}" placeholder="Автор">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Name error</div>
+                </div>
+                <div class="year">
+                    <label for="year">Год выпуска книги: </label>
+                    <input id="year" type="number" th:field="*{year}" placeholder="Год выпуска">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Name error</div>
+                </div>
+                <div class="create">
+                    <input type="submit" value="Создать">
+                </div>
+            </form>
+            <form th:method="GET" th:action="@{/books}">
+                <input type="submit" value="Назад">
+            </form>
+        </div>
     </body>
 </html>

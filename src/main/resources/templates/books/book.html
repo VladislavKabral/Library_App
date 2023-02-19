@@ -7,6 +7,9 @@
     <body>
         <div class="book">
             <h3 th:text="${book.getFullName()}">Book full name</h3>
+            <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+                <input type="submit" value="Редактировать">
+            </form>
         </div>
         <form th:method="GET" th:action="@{/books}">
             <input type="submit" value="Назад">

@@ -1,6 +1,8 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Book")
@@ -11,9 +13,13 @@ public class Book {
     private int id;
 
     @Column(name = "name")
+    @NotEmpty(message = "Поле названия книги не должно быть пустым")
+    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле названия книги должны быть только буквы")
     private String name;
 
     @Column(name = "author")
+    @NotEmpty(message = "Поле автора книги не должно быть пустым")
+    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле автора книги должны быть только буквы")
     private String author;
 
     @Column(name = "year")

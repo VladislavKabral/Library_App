@@ -8,6 +8,9 @@
         <div class="person">
             <h3 th:text="${person.getFullName()}">Person full name</h3>
         </div>
+        <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+            <input type="submit" value="Редактировать">
+        </form>
         <form th:method="GET" th:action="@{/people}">
             <input type="submit" value="Назад">
         </form>
