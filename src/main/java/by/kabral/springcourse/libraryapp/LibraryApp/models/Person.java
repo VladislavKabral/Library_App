@@ -16,17 +16,17 @@ public class Person {
 
     @Column(name = "last_name")
     @NotEmpty(message = "Поле фамилии не должно быть пустым")
-    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле фамилии должны быть только буквы")
+    @Pattern(regexp = "^[а-яА-Я ]+$", message = "В поле фамилии должны быть только буквы")
     private String lastName;
 
     @Column(name = "first_name")
     @NotEmpty(message = "Поле имени не должно быть пустым")
-    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле имени должны быть только буквы")
+    @Pattern(regexp = "^[а-яА-Я ]+$", message = "В поле имени должны быть только буквы")
     private String firstName;
 
     @Column(name = "middle_name")
     @NotEmpty(message = "Поле отчества не должно быть пустым")
-    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле отчества должны быть только буквы")
+    @Pattern(regexp = "^[а-яА-Я ]+$", message = "В поле отчества должны быть только буквы")
     private String middleName;
 
     @Column(name = "year_of_birthday")
@@ -91,6 +91,10 @@ public class Person {
     }
 
     public String getCustomerName() {
-        return lastName + " " + firstName + " " + middleName + " " + yearOfBirthday;
+        return lastName + " " + firstName + " " + middleName + ", " + yearOfBirthday;
+    }
+
+    public Boolean isGetBooks() {
+        return books.size() != 0;
     }
 }

@@ -62,7 +62,7 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String editPerson(@ModelAttribute("person") @Valid Person person, @PathVariable("id") int id, BindingResult bindingResult) {
+    public String editPerson(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
         peopleValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -72,5 +72,17 @@ public class PeopleController {
         peopleService.update(id, person);
 
         return "redirect:/people/person";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deletePersonPage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", peopleService.findById(id));
+        return "people/deletePerson";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deletePerson(@PathVariable("id") int id) {
+        peopleService.delete(id);
+        return "redirect:/people";
     }
 }

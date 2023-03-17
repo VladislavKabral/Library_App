@@ -1,6 +1,7 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.services;
 
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Book;
+import by.kabral.springcourse.libraryapp.LibraryApp.models.Person;
 import by.kabral.springcourse.libraryapp.LibraryApp.repositories.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class BooksService {
 
     private final BooksRepository booksRepository;
+    private final PeopleService peopleService;
 
     @Autowired
-    public BooksService(BooksRepository booksRepository) {
+    public BooksService(BooksRepository booksRepository, PeopleService peopleService) {
         this.booksRepository = booksRepository;
+        this.peopleService = peopleService;
     }
 
     public List<Book> findAll() {
@@ -43,5 +46,14 @@ public class BooksService {
     @Transactional
     public void delete(int id) {
         booksRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void giveBook(int bookId, int personId) {
+        Book currentBook = findById(bookId);
+        Person owner = peopleService.findById(personId);
+        currentBook.setId(bookId);
+        currentBook.setOwner(owner);
+        booksRepository.save(currentBook);
     }
 }

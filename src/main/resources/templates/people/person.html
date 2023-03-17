@@ -6,11 +6,23 @@
 </head>
     <body>
         <div class="person">
-            <h3 th:text="${person.getFullName()}">Person full name</h3>
+            <h3 th:text="${person.getCustomerName()}">Person full name</h3>
+            <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+                <input type="submit" value="Редактировать">
+            </form>
+            <form th:method="GET" th:action="@{/people/{id}/delete(id=${person.getId()})}">
+                <input type="submit" value="Удалить">
+            </form>
         </div>
-        <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
-            <input type="submit" value="Редактировать">
-        </form>
+        <div class="emptyList" th:if="${person.isGetBooks()}">
+            <label>Человек пока не взял ни одной книги</label>
+        </div>
+        <div class="personBooks" th:if="${!person.isGetBooks()}">
+            <h3>Книги: </h3>
+            <div class="books" th:each="book: ${person.getBooks()}">
+                <label th:text="${book.getFullName()}">Book name</label>
+            </div>
+        </div>
         <form th:method="GET" th:action="@{/people}">
             <input type="submit" value="Назад">
         </form>

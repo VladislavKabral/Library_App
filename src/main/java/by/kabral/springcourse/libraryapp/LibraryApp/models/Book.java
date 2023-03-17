@@ -14,12 +14,12 @@ public class Book {
 
     @Column(name = "name")
     @NotEmpty(message = "Поле названия книги не должно быть пустым")
-    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле названия книги должны быть только буквы")
+    @Pattern(regexp = "^[а-яА-Я ]+$", message = "В поле названия книги должны быть только буквы")
     private String name;
 
     @Column(name = "author")
     @NotEmpty(message = "Поле автора книги не должно быть пустым")
-    @Pattern(regexp = "^[а-яА-Я]+$", message = "В поле автора книги должны быть только буквы")
+    @Pattern(regexp = "^[а-яА-Я ]+$", message = "В поле автора книги должны быть только буквы")
     private String author;
 
     @Column(name = "year")
@@ -74,5 +74,9 @@ public class Book {
 
     public String getFullName() {
         return name + ", " + author + ", " + year;
+    }
+
+    public Boolean isEmptyPerson() {
+        return owner == null;
     }
 }

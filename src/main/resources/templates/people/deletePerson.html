@@ -5,6 +5,14 @@
     <title>Delete person</title>
 </head>
     <body>
-
+    <div class="person">
+        <label>Действительно хотите удалить человека?</label>
+        <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+            <input type="submit" value="Да">
+        </form>
+        <form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
+            <input type="submit" value="Нет">
+        </form>
+    </div>
     </body>
 </html>

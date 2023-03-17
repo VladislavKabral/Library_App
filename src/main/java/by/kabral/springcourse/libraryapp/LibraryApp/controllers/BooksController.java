@@ -1,7 +1,9 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.controllers;
 
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Book;
+import by.kabral.springcourse.libraryapp.LibraryApp.models.Person;
 import by.kabral.springcourse.libraryapp.LibraryApp.services.BooksService;
+import by.kabral.springcourse.libraryapp.LibraryApp.services.PeopleService;
 import by.kabral.springcourse.libraryapp.LibraryApp.utils.BooksValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,13 @@ public class BooksController {
     private final BooksService booksService;
     private final BooksValidator booksValidator;
 
+    private final PeopleService peopleService;
+
     @Autowired
-    public BooksController(BooksService booksService, BooksValidator booksValidator) {
+    public BooksController(BooksService booksService, BooksValidator booksValidator, PeopleService peopleService) {
         this.booksService = booksService;
         this.booksValidator = booksValidator;
+        this.peopleService = peopleService;
     }
 
     @GetMapping
@@ -30,8 +35,16 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String bookHome(@PathVariable("id") int id, Model model) {
-        model.addAttribute("book", booksService.findById(id));
+    public String bookHome(@PathVariable("id") int id, Model model, @ModelAttribute("selectedPerson") Person selectedPerson) {
+        Book book = booksService.findById(id);
+        model.addAttribute("book", book);
+
+        if (book.isEmptyPerson()) {
+            model.addAttribute("people", peopleService.findAll());
+        } else {
+            model.addAttribute("owner", book.getOwner());
+        }
+
         return "books/book";
     }
 
@@ -61,7 +74,7 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String editBook(@ModelAttribute("book") @Valid Book book, @PathVariable("id") int id, BindingResult bindingResult) {
+    public String editBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable("id") int id) {
         booksValidator.validate(book, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -71,5 +84,23 @@ public class BooksController {
         booksService.update(id, book);
 
         return "books/book";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteBookPage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("book", booksService.findById(id));
+        return "books/deleteBook";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteBook(@PathVariable("id") int id) {
+        booksService.delete(id);
+        return "redirect:/books";
+    }
+
+    @PatchMapping("/{id}/give")
+    public String giveBook(@ModelAttribute("selectedPerson") Person selectedPerson, @PathVariable("id") int id) {
+        booksService.giveBook(id, selectedPerson.getId());
+        return "redirect:/books";
     }
 }
