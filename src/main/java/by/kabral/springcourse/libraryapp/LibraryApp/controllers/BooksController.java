@@ -103,4 +103,10 @@ public class BooksController {
         booksService.giveBook(id, selectedPerson.getId());
         return "redirect:/books";
     }
+
+    @PatchMapping("/{id}/release")
+    public String releaseBook(@PathVariable("id") int id) {
+        booksService.releaseBook(id);
+        return "redirect:/books";
+    }
 }

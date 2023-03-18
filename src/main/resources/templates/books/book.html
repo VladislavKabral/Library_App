@@ -19,11 +19,11 @@
                     </div>
                 </div>
             </form>
-            <form th:method="PATCH" th:object="${book}">
+            <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}" th:object="${book}">
                 <div class="notEmptyPerson" th:if="${owner}">
                     <label for="currentPerson">Книга сейчас у</label>
-                    <label id="currentPerson" th:text="${owner.getFullName()}">Person name</label>
-                    <div>
+                    <label id="currentPerson" for="releaseButton" th:text="${owner.getFullName()}">Person name</label>
+                    <div id="releaseButton">
                         <input type="submit" value="Освободить книгу">
                     </div>
                 </div>

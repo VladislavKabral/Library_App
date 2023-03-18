@@ -56,4 +56,12 @@ public class BooksService {
         currentBook.setOwner(owner);
         booksRepository.save(currentBook);
     }
+
+    @Transactional
+    public void releaseBook(int id) {
+        Book book = findById(id);
+        book.setId(id);
+        book.setOwner(null);
+        booksRepository.save(book);
+    }
 }
