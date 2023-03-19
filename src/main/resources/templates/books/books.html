@@ -10,6 +10,13 @@
                 <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getFullName()}">Book full name</a>
             </div>
         </div>
+        <div class="pages">
+            <a th:href="@{/books?pageIndex=0}">1</a>
+            <a th:href="@{/books?pageIndex=1}">2</a>
+            <a th:href="@{/books?pageIndex=2}">3</a>
+            <a th:href="@{/books?pageIndex=3}">4</a>
+            <a th:href="@{/books?pageIndex=4}">5</a>
+        </div>
         <form th:method="GET" th:action="@{/books/new}">
             <input type="submit" value="Добавить">
         </form>

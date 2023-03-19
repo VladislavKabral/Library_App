@@ -71,7 +71,7 @@ public class PeopleController {
 
         peopleService.update(id, person);
 
-        return "redirect:/people/person";
+        return "redirect:/people/" + id;
     }
 
     @GetMapping("/{id}/delete")

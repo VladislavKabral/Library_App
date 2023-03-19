@@ -7,6 +7,7 @@ import by.kabral.springcourse.libraryapp.LibraryApp.services.PeopleService;
 import by.kabral.springcourse.libraryapp.LibraryApp.utils.BooksValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,8 @@ public class BooksController {
 
     private final PeopleService peopleService;
 
+    private final static int PAGE_COUNT = 5;
+
     @Autowired
     public BooksController(BooksService booksService, BooksValidator booksValidator, PeopleService peopleService) {
         this.booksService = booksService;
@@ -29,8 +32,10 @@ public class BooksController {
     }
 
     @GetMapping
-    public String booksHome(Model model) {
-        model.addAttribute("books", booksService.findAll());
+    public String booksHome(@RequestParam(defaultValue = "0") int pageIndex, Model model) {
+        int listSize = booksService.findAll().size();
+        int countOfBooksOnPage = (int) Math.ceil(listSize / (double)PAGE_COUNT);
+        model.addAttribute("books", booksService.getPageElements(pageIndex, countOfBooksOnPage));
         return "books/books";
     }
 
