@@ -83,7 +83,7 @@ public class BooksController {
 
         booksService.update(id, book);
 
-        return "books/book";
+        return "redirect:/books/" + id;
     }
 
     @GetMapping("/{id}/delete")
