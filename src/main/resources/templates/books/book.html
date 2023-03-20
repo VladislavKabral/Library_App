@@ -14,6 +14,7 @@
                     <select id="person" th:object="${selectedPerson}" th:field="*{id}">
                         <option th:each="person: ${people}" th:value="${person.getId()}" th:text="${person.getFullName()}"></option>
                     </select>
+                    <br>
                     <div>
                         <input type="submit" value="Назначить книгу">
                     </div>
@@ -28,13 +29,16 @@
                     </div>
                 </div>
             </form>
+            <br>
             <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
                 <input type="submit" value="Редактировать">
             </form>
+            <br>
             <form th:method="GET" th:action="@{/books/{id}/delete(id=${book.getId()})}">
                 <input type="submit" value="Удалить">
             </form>
         </div>
+        <br>
         <form th:method="GET" th:action="@{/books}">
             <input type="submit" value="Назад">
         </form>

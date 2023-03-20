@@ -22,10 +22,12 @@
                     <input id="year" type="number" th:field="*{year}" placeholder="Год выпуска">
                     <div class="error" style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Name error</div>
                 </div>
+                <br>
                 <div class="create">
                     <input type="submit" value="Создать">
                 </div>
             </form>
+            <br>
             <form th:method="GET" th:action="@{/books}">
                 <input type="submit" value="Назад">
             </form>

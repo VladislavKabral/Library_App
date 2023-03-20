@@ -10,9 +10,11 @@
                 <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getCustomerName()}">Customer full name</a>
             </div>
         </div>
+        <br>
         <form th:method="GET" th:action="@{/people/new}">
             <input type="submit" value="Добавить">
         </form>
+        <br>
         <form th:method="GET" th:action="@{/books}">
             <input type="submit" value="Книги">
         </form>

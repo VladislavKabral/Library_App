@@ -27,10 +27,12 @@
                     <input id="yearOfBirthday" type="number" th:field="*{yearOfBirthday}" placeholder="Год рождения">
                     <div class="error" style="color:red" th:if="${#fields.hasErrors('yearOfBirthday')}" th:errors="*{yearOfBirthday}">Name error</div>
                 </div>
+                <br>
                 <div class="create">
                     <input type="submit" value="Редактировать">
                 </div>
             </form>
+            <br>
             <form th:method="GET" th:action="@{/people}">
                 <input type="submit" value="Назад">
             </form>
