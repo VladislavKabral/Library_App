@@ -3,6 +3,9 @@ package by.kabral.springcourse.libraryapp.LibraryApp.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "Book")
@@ -21,6 +24,10 @@ public class Book {
     @NotEmpty(message = "Поле автора книги не должно быть пустым")
     @Pattern(regexp = "^[а-яА-Я ]+$", message = "В поле автора книги должны быть только буквы")
     private String author;
+
+    @Column(name = "date_of_giving")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfGiving;
 
     @Column(name = "year")
     private int year;
@@ -78,5 +85,13 @@ public class Book {
 
     public Boolean isEmptyPerson() {
         return owner == null;
+    }
+
+    public Date getDateOfGiving() {
+        return dateOfGiving;
+    }
+
+    public void setDateOfGiving(Date dateOfGiving) {
+        this.dateOfGiving = dateOfGiving;
     }
 }

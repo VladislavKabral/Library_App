@@ -1,9 +1,11 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.controllers;
 
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Book;
+import by.kabral.springcourse.libraryapp.LibraryApp.models.MyCurrentDate;
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Page;
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Person;
 import by.kabral.springcourse.libraryapp.LibraryApp.services.BooksService;
+import by.kabral.springcourse.libraryapp.LibraryApp.services.CurrentDateService;
 import by.kabral.springcourse.libraryapp.LibraryApp.services.PeopleService;
 import by.kabral.springcourse.libraryapp.LibraryApp.utils.BooksValidator;
 import jakarta.validation.Valid;
@@ -22,13 +24,16 @@ public class BooksController {
 
     private final PeopleService peopleService;
 
+    private final CurrentDateService currentDateService;
+
     private final static int ELEMENTS_ON_PAGE_COUNT = 5;
 
     @Autowired
-    public BooksController(BooksService booksService, BooksValidator booksValidator, PeopleService peopleService) {
+    public BooksController(BooksService booksService, BooksValidator booksValidator, PeopleService peopleService, CurrentDateService currentDateService) {
         this.booksService = booksService;
         this.booksValidator = booksValidator;
         this.peopleService = peopleService;
+        this.currentDateService = currentDateService;
     }
 
     @GetMapping
@@ -114,6 +119,12 @@ public class BooksController {
     @PatchMapping("/{id}/release")
     public String releaseBook(@PathVariable("id") int id) {
         booksService.releaseBook(id);
+        return "redirect:/books";
+    }
+
+    @PostMapping("skip")
+    public String skipTime() {
+        currentDateService.updateCurrentDate();
         return "redirect:/books";
     }
 }

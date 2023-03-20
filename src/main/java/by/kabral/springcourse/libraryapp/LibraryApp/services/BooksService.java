@@ -19,10 +19,13 @@ public class BooksService {
     private final BooksRepository booksRepository;
     private final PeopleService peopleService;
 
+    private final CurrentDateService currentDateService;
+
     @Autowired
-    public BooksService(BooksRepository booksRepository, PeopleService peopleService) {
+    public BooksService(BooksRepository booksRepository, PeopleService peopleService, CurrentDateService currentDateService) {
         this.booksRepository = booksRepository;
         this.peopleService = peopleService;
+        this.currentDateService = currentDateService;
     }
 
     public List<Book> findAll() {
@@ -60,6 +63,7 @@ public class BooksService {
         Person owner = peopleService.findById(personId);
         currentBook.setId(bookId);
         currentBook.setOwner(owner);
+        currentBook.setDateOfGiving(currentDateService.getCurrentDate().getDate());
         booksRepository.save(currentBook);
     }
 
@@ -68,6 +72,7 @@ public class BooksService {
         Book book = findById(id);
         book.setId(id);
         book.setOwner(null);
+        book.setDateOfGiving(null);
         booksRepository.save(book);
     }
 }
