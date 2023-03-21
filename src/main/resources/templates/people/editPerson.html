@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit person</title>
+</head>
+    <body>
+        <div class="person">
+            <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+                <div class="lastName">
+                    <label for="lastName">Фамилия: </label>
+                    <input id="lastName" type="text" th:field="*{lastName}" placeholder="Фамилия">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name error</div>
+                </div>
+                <div class="firstName">
+                    <label for="firstName">Имя: </label>
+                    <input id="firstName" type="text" th:field="*{firstName}" placeholder="Имя">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name error</div>
+                </div>
+                <div class="middleName">
+                    <label for="middleName">Отчество: </label>
+                    <input id="middleName" type="text" th:field="*{middleName}" placeholder="Отчество">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}">Name error</div>
+                </div>
+                <div class="yearOfBirthday">
+                    <label for="yearOfBirthday">Год рождения: </label>
+                    <input id="yearOfBirthday" type="number" th:field="*{yearOfBirthday}" placeholder="Год рождения">
+                    <div class="error" style="color:red" th:if="${#fields.hasErrors('yearOfBirthday')}" th:errors="*{yearOfBirthday}">Name error</div>
+                </div>
+                <br>
+                <div class="create">
+                    <input type="submit" value="Редактировать">
+                </div>
+            </form>
+            <br>
+            <form th:method="GET" th:action="@{/people}">
+                <input type="submit" value="Назад">
+            </form>
+        </div>
+    </body>
+</html>
