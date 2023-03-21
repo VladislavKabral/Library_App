@@ -73,6 +73,11 @@ public class BooksService {
         book.setId(id);
         book.setOwner(null);
         book.setDateOfGiving(null);
+        book.setExpired(false);
         booksRepository.save(book);
+    }
+
+    public List<Book> searchBookByName(String name) {
+        return booksRepository.findByNameStartingWithIgnoreCase(name);
     }
 }

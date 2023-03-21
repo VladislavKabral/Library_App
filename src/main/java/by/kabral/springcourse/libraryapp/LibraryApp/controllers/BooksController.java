@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/books")
 public class BooksController {
@@ -125,5 +127,23 @@ public class BooksController {
     public String skipTime() {
         currentDateService.updateCurrentDate();
         return "redirect:/books";
+    }
+
+    @GetMapping("search")
+    public String searchPage() {
+        return "books/searchBook";
+    }
+
+    @PostMapping("search")
+    public String search(@RequestParam("query") String query, Model model) {
+        List<Book> foundBooks = booksService.searchBookByName(query);
+
+        if (foundBooks.size() != 0) {
+            model.addAttribute("foundBooks", foundBooks);
+        } else {
+            model.addAttribute("isFoundedBooksDontExists", true);
+        }
+
+        return "books/searchBook";
     }
 }

@@ -24,6 +24,10 @@
             <input type="submit" value="Клиенты">
         </form>
         <br>
+        <form th:method="GET" th:action="@{/books/search}">
+            <input type="submit" value="Поиск книги">
+        </form>
+        <br>
         <form th:method="POST" th:action="@{/books/skip}">
             <input type="submit" value="Промотать 10 дней">
         </form>
