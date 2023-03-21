@@ -21,7 +21,8 @@
         <div class="personBooks" th:if="${person.isGetBooks()}">
             <h3>Книги: </h3>
             <div class="books" th:each="book: ${person.getBooks()}">
-                <label th:text="${book.getFullName()}">Book name</label>
+                <label th:if="${!book.isExpired()}" th:text="${book.getFullName()}">Book name</label>
+                <label th:if="${book.isExpired()}" style="color: red" th:text="${book.getFullName()}">Book name</label>
             </div>
         </div>
         <br>

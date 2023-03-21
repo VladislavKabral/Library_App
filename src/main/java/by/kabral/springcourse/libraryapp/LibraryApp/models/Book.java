@@ -29,6 +29,9 @@ public class Book {
     @Temporal(TemporalType.DATE)
     private Date dateOfGiving;
 
+    @Transient
+    private boolean isExpired;
+
     @Column(name = "year")
     private int year;
 
@@ -93,5 +96,13 @@ public class Book {
 
     public void setDateOfGiving(Date dateOfGiving) {
         this.dateOfGiving = dateOfGiving;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        isExpired = expired;
     }
 }

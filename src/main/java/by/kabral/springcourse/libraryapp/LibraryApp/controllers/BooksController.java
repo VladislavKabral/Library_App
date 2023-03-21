@@ -1,7 +1,6 @@
 package by.kabral.springcourse.libraryapp.LibraryApp.controllers;
 
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Book;
-import by.kabral.springcourse.libraryapp.LibraryApp.models.MyCurrentDate;
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Page;
 import by.kabral.springcourse.libraryapp.LibraryApp.models.Person;
 import by.kabral.springcourse.libraryapp.LibraryApp.services.BooksService;
